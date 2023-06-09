@@ -122,10 +122,13 @@ function FiberNode(
   // Instance
   // Fiber元素的静态属性相关
   this.tag = tag;
-  this.key = key; // fiber的key
+  // fiber的key
+  this.key = key;
   this.elementType = null;
-  this.type = null; // fiber对应的DOM元素的标签类型，div、p...
-  this.stateNode = null; // fiber的实例，类组件场景下，是组件的类，HostComponent场景，是dom元素
+  // fiber对应的DOM元素的标签类型，div、p...
+  this.type = null;
+  // fiber的实例，类组件场景下，是组件的类，HostComponent场景，是dom元素
+  this.stateNode = null;
 
   // Fiber 链表相关
   this.return = null; // 指向父级fiber
@@ -145,7 +148,6 @@ function FiberNode(
   this.mode = mode;
 
   // Effects
-  // flags原为effectTag，表示当前这个fiber节点变化的类型：增、删、改
   this.flags = NoFlags;
   this.nextEffect = null;
 
@@ -439,6 +441,7 @@ export function resetWorkInProgress(workInProgress: Fiber, renderLanes: Lanes) {
 export function createHostRootFiber(tag: RootTag): Fiber {
   let mode;
   if (tag === ConcurrentRoot) {
+    // TODO 为什么mode的值等于ConcurrentMode | BlockingMode | StrictMode 即结果为7
     mode = ConcurrentMode | BlockingMode | StrictMode;
   } else if (tag === BlockingRoot) {
     mode = BlockingMode | StrictMode;

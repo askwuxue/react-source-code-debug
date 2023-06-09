@@ -244,6 +244,7 @@ export function createContainer(
   hydrate: boolean,
   hydrationCallbacks: null | SuspenseHydrationCallbacks,
 ): OpaqueRoot {
+  // 创建container的FiberRoot对象
   return createFiberRoot(containerInfo, tag, hydrate, hydrationCallbacks);
 }
 

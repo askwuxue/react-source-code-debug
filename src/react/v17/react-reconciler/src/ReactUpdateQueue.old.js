@@ -149,6 +149,7 @@ if (__DEV__) {
   };
 }
 
+// 给fiber添加updateQueue属性
 export function initializeUpdateQueue<State>(fiber: Fiber): void {
   const queue: UpdateQueue<State> = {
     baseState: fiber.memoizedState,

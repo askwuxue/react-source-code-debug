@@ -329,6 +329,7 @@ export function listenToAllSupportedEvents(rootContainerElement: EventTarget) {
       return;
     }
     (rootContainerElement: any)[listeningMarker] = true;
+    // TODO 不知道什么时候将allNativeEvents赋值了
     allNativeEvents.forEach(domEventName => {
       if (!nonDelegatedEvents.has(domEventName)) {
         listenToNativeEvent(

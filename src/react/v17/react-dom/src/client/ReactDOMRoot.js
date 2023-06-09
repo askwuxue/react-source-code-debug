@@ -133,9 +133,11 @@ function createRootImpl(
     null;
   const root = createContainer(container, tag, hydrate, hydrationCallbacks);
   markContainerAsRoot(root.current, container);
+  // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType
   const containerNodeType = container.nodeType;
 
   if (enableEagerRootListeners) {
+    // 排除注释节点
     const rootContainerElement =
       container.nodeType === COMMENT_NODE ? container.parentNode : container;
     listenToAllSupportedEvents(rootContainerElement);
@@ -177,6 +179,7 @@ export function createRoot(
     'createRoot(...): Target container is not a DOM element.',
   );
   warnIfReactDOMContainerInDEV(container);
+  // 创建根root
   return new ReactDOMRoot(container, options);
 }
 

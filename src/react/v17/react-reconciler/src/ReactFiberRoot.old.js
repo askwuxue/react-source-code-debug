@@ -86,6 +86,7 @@ export function createFiberRoot(
   hydrate: boolean,
   hydrationCallbacks: null | SuspenseHydrationCallbacks,
 ): FiberRoot {
+  // 创建根FiberRootNode
   const root: FiberRoot = (new FiberRootNode(containerInfo, tag, hydrate): any);
   if (enableSuspenseCallback) {
     root.hydrationCallbacks = hydrationCallbacks;
@@ -97,6 +98,7 @@ export function createFiberRoot(
   root.current = uninitializedFiber;
   uninitializedFiber.stateNode = root;
 
+  // 给根Fiber的updateQueue赋值
   initializeUpdateQueue(uninitializedFiber);
 
   return root;
