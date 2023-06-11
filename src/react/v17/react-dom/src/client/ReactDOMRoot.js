@@ -98,6 +98,7 @@ ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render = function
       }
     }
   }
+  // children 即render的参数
   updateContainer(children, root, null, null);
 };
 
