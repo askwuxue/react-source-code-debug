@@ -244,7 +244,7 @@ export function createContainer(
   hydrate: boolean,
   hydrationCallbacks: null | SuspenseHydrationCallbacks,
 ): OpaqueRoot {
-  // 创建container的FiberRoot对象
+  // 创建FiberRoot对象并且创建全局的第一个Fiber，链接他们之间的关系
   return createFiberRoot(containerInfo, tag, hydrate, hydrationCallbacks);
 }
 

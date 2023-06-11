@@ -74,6 +74,7 @@ function ReactDOMBlockingRoot(
 ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render = function(
   children: ReactNodeList,
 ): void {
+  // internalRoot 即fiberRoot
   const root = this._internalRoot;
   if (__DEV__) {
     if (typeof arguments[1] === 'function') {
@@ -132,7 +133,9 @@ function createRootImpl(
       options.hydrationOptions != null &&
       options.hydrationOptions.mutableSources) ||
     null;
+  // 创建全局FiberRoot,链接和hostFiber的关系
   const root = createContainer(container, tag, hydrate, hydrationCallbacks);
+  // 链接根容器和根Fiber
   markContainerAsRoot(root.current, container);
   // https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType
   const containerNodeType = container.nodeType;
@@ -180,7 +183,7 @@ export function createRoot(
     'createRoot(...): Target container is not a DOM element.',
   );
   warnIfReactDOMContainerInDEV(container);
-  // 创建根root
+  // ReactDOMRoot对象，全局三大对象之一
   return new ReactDOMRoot(container, options);
 }
 
