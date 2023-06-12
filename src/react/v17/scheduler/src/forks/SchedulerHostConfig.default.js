@@ -21,6 +21,7 @@ const hasPerformanceNow =
 
 if (hasPerformanceNow) {
   const localPerformance = performance;
+  // 获取当前时间
   getCurrentTime = () => localPerformance.now();
 } else {
   const localDate = Date;
@@ -112,6 +113,7 @@ if (
   // thread, like user events. By default, it yields multiple times per frame.
   // It does not attempt to align with frame boundaries, since most tasks don't
   // need to be frame aligned; for those that do, use requestAnimationFrame.
+  // 时间切片周期, 默认是5ms(如果一个task运行超过该周期, 下一个task执行之前, 会把控制权归还浏览器)
   let yieldInterval = 5;
   let deadline = 0;
 
@@ -127,6 +129,7 @@ if (
     navigator.scheduling.isInputPending !== undefined
   ) {
     const scheduling = navigator.scheduling;
+    // 是否让出主线程
     shouldYieldToHost = function() {
       const currentTime = getCurrentTime();
       if (currentTime >= deadline) {
@@ -151,6 +154,7 @@ if (
       }
     };
 
+    // // 请求绘制
     requestPaint = function() {
       needsPaint = true;
     };
@@ -165,6 +169,7 @@ if (
     requestPaint = function() {};
   }
 
+  // 设置时间切片的周期
   forceFrameRate = function(fps) {
     if (fps < 0 || fps > 125) {
       // Using console['error'] to evade Babel and ESLint
@@ -188,6 +193,7 @@ if (
       // Yield after `yieldInterval` ms, regardless of where we are in the vsync
       // cycle. This means there's always time remaining at the beginning of
       // the message event.
+      // 当前时间加上时间切片周期是deadline
       deadline = currentTime + yieldInterval;
       const hasTimeRemaining = true;
       try {
@@ -222,6 +228,7 @@ if (
   const port = channel.port2;
   channel.port1.onmessage = performWorkUntilDeadline;
 
+  // 请求及时回调
   requestHostCallback = function(callback) {
     scheduledHostCallback = callback;
     if (!isMessageLoopRunning) {

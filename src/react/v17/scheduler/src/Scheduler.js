@@ -168,6 +168,7 @@ function flushWork(hasTimeRemaining, initialTime) {
 }
 
 function workLoop(hasTimeRemaining, initialTime) {
+  // 保存当前时间, 用于判断任务是否过期
   let currentTime = initialTime;
   advanceTimers(currentTime);
   // 获取taskQueue中最紧急的任务
@@ -311,6 +312,7 @@ function unstable_scheduleCallback(priorityLevel, callback, options) {
   }
 
   var timeout;
+  // 根据优先级设置任务的过期时间
   switch (priorityLevel) {
     case ImmediatePriority:
       timeout = IMMEDIATE_PRIORITY_TIMEOUT;
