@@ -19,7 +19,7 @@ import './App.css';
   }
 }*/
 function App() {
-  return <p>1</p>
+  return <h1>看看这段文字首次渲染的流程</h1>
   // 事件系统
   // return <EventDemo/>
 

@@ -5,6 +5,7 @@ import App from './App';
 
 const root = document.getElementById('root')
 
+const com = <App />;
 // Concurrent mode
 ReactDOM.createRoot(root).render(<App />);
 
